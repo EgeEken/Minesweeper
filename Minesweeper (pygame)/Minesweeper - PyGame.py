@@ -170,6 +170,16 @@ class Minesweeper:
                     sys.exit()
                 elif event.type == pg.MOUSEBUTTONDOWN or event.type == KEYDOWN:
                     return None
+                
+    def end_screen(self):
+        start = time.time()
+        while time.time() - start < 10:
+            for event in pg.event.get():
+                if event.type == pg.QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+                    pg.quit()
+                    sys.exit()
+                elif event.type == pg.MOUSEBUTTONDOWN or event.type == KEYDOWN:
+                    return None
 
     def opening_screen(self):
         start = time.time()
@@ -285,6 +295,7 @@ class Minesweeper:
         self.generate_grid()
         while self.state == 'Continue' or self.state == 'First':
             self.userclick()
+        self.end_screen()
         if self.state == 'Loss':
             self.lose_screen()
         elif self.state == 'Win':
